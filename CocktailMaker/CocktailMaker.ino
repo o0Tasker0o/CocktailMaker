@@ -72,6 +72,7 @@ void loop()
     if(!mLastButtonState)
     {
       mCocktailMenu.SelectNextCocktail();
+      mRecipePosition = 0;
     }
 
     mLastButtonState = true;
