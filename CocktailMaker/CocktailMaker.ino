@@ -18,12 +18,20 @@
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int mRecipePosition;
+bool mLastButtonState = false;
 CocktailMenu mCocktailMenu;
 
-void PrintRecipe()
+void PrintCocktail()
 {
+  lcd.setCursor(0, 0);
+  lcd.print("                ");
+  lcd.setCursor(0, 0);
+  lcd.print(mCocktailMenu.GetCurrentCocktail().name);
+
   String recipeSubstring = mCocktailMenu.GetCurrentCocktail().recipe.substring(mRecipePosition, mRecipePosition + 16);
   
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
   lcd.setCursor(0, 1);
   lcd.print(recipeSubstring);
   
@@ -41,17 +49,37 @@ void PrintRecipe()
 
 void setup() 
 {
+  pinMode(A5, INPUT_PULLUP);
+  
   lcd.begin(16, 2);
-  
-  lcd.setCursor(0, 0);
-  lcd.print(mCocktailMenu.GetCurrentCocktail().name);
-  
+
   mRecipePosition = 0;
   
-  PrintRecipe();
+  PrintCocktail();
+}
+
+bool IsButtonPressed()
+{
+  int analogValue = analogRead(5);
+
+  return analogValue < 1000;
 }
 
 void loop() 
 {
-  PrintRecipe();
+  if(IsButtonPressed())
+  {
+    if(!mLastButtonState)
+    {
+      mCocktailMenu.SelectNextCocktail();
+    }
+
+    mLastButtonState = true;
+  }
+  else
+  {
+    mLastButtonState = false;
+  }
+
+  PrintCocktail();
 }
