@@ -13,26 +13,21 @@
  */
 
 #include <LiquidCrystal.h>
+#include <CocktailMenu.h>
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-struct Cocktail
-{
-  String name;
-  String recipe;
-};
-
 int mRecipePosition;
-Cocktail mTestCocktail;
+CocktailMenu mCocktailMenu;
 
 void PrintRecipe()
 {
-  String recipeSubstring = mTestCocktail.recipe.substring(mRecipePosition, mRecipePosition + 16);
+  String recipeSubstring = mCocktailMenu.GetCurrentCocktail().recipe.substring(mRecipePosition, mRecipePosition + 16);
   
   lcd.setCursor(0, 1);
   lcd.print(recipeSubstring);
   
-  if(mRecipePosition + 16 < mTestCocktail.recipe.length())
+  if(mRecipePosition + 16 < mCocktailMenu.GetCurrentCocktail().recipe.length())
   {
     mRecipePosition++;
   }
@@ -46,13 +41,10 @@ void PrintRecipe()
 
 void setup() 
 {
-  mTestCocktail.name = "Screwdriver";
-  mTestCocktail.recipe = "Orange Juice, Vodka";
-  
   lcd.begin(16, 2);
   
   lcd.setCursor(0, 0);
-  lcd.print(mTestCocktail.name);
+  lcd.print(mCocktailMenu.GetCurrentCocktail().name);
   
   mRecipePosition = 0;
   

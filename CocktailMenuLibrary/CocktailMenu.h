@@ -3,11 +3,17 @@
 
 #include "Arduino.h"
 
+struct Cocktail
+{
+  String name;
+  String recipe;
+};
+
 class CocktailMenu
 {
   public:
     CocktailMenu();
-  private:
+    Cocktail GetCurrentCocktail();
 };
 
 #endif
