@@ -44,7 +44,7 @@ void PrintCocktail()
     mRecipePosition = 0;
   }
   
-  delay(500);
+  delay(400);
 }
 
 void setup() 
