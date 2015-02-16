@@ -15,37 +15,42 @@
 #include <LiquidCrystal.h>
 #include <CocktailMenu.h>
 
+#define SCROLL_DELAY 1000
+
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-int mRecipePosition;
 bool mLastButtonState = false;
-String mAvailableIngredients[] = {"Orange Juice", "Vodka", "Cointreau", "Cranberry Juice", "Lime Juice", ""};
+String mAvailableIngredients[] = {"Pineapple Juice", "Vodka", "Cointreau", "Cranberry Juice", "Lime Juice", "Peach Schnapps"};
 CocktailMenu mCocktailMenu(mAvailableIngredients);
+int mScrollCounter = 0;
 
 void PrintCocktail()
 {
-  lcd.setCursor(0, 0);
-  lcd.print("                ");
-  lcd.setCursor(0, 0);
-  lcd.print(mCocktailMenu.GetCurrentCocktail().name);
+  int recipeScrollPosition = mScrollCounter / SCROLL_DELAY;
 
-  String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(mRecipePosition, mRecipePosition + 16);
-  
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(recipeSubstring);
-  
-  if(mRecipePosition + 12 < mCocktailMenu.GetCurrentCocktail().ingredients.length())
+  if(mScrollCounter % SCROLL_DELAY == 0)
   {
-    mRecipePosition++;
+    lcd.setCursor(0, 0);
+    lcd.print("                ");
+    lcd.setCursor(0, 0);
+    lcd.print(mCocktailMenu.GetCurrentCocktail().name);
+  
+    String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(recipeScrollPosition, recipeScrollPosition + 16);
+
+    lcd.setCursor(0, 1);
+    lcd.print("                ");
+    lcd.setCursor(0, 1);
+    lcd.print(recipeSubstring);
+  }
+  
+  if(recipeScrollPosition + 12 < mCocktailMenu.GetCurrentCocktail().ingredients.length())
+  {
+    mScrollCounter++;
   }
   else
   {
-    mRecipePosition = 0;
+    mScrollCounter = 0;
   }
-  
-  delay(400);
 }
 
 void setup() 
@@ -53,9 +58,6 @@ void setup()
   pinMode(A5, INPUT_PULLUP);
   
   lcd.begin(16, 2);
-
-  mRecipePosition = 0;
-  
   PrintCocktail();
 }
 
@@ -73,7 +75,7 @@ void loop()
     if(!mLastButtonState)
     {
       mCocktailMenu.SelectNextCocktail();
-      mRecipePosition = 0;
+      mScrollCounter = 0;
     }
 
     mLastButtonState = true;
