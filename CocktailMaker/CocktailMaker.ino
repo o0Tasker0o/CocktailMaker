@@ -24,22 +24,28 @@ String mAvailableIngredients[] = {"Pineapple Juice", "Vodka", "Cointreau", "Cran
 CocktailMenu mCocktailMenu(mAvailableIngredients);
 long mScrollCounter = 0;
 
+void ClearScreen()
+{
+    lcd.setCursor(0, 0);
+    lcd.print("                ");
+    lcd.setCursor(0, 1);
+    lcd.print("                ");
+}
+
 void PrintCocktail()
 {
   long recipeScrollPosition = mScrollCounter / SCROLL_DELAY;
 
   if(mScrollCounter % SCROLL_DELAY == 0)
   {
-    lcd.setCursor(0, 0);
-    lcd.print("                ");
+    ClearScreen();
+
     lcd.setCursor(0, 0);
     lcd.print(mCocktailMenu.GetCurrentCocktail().name);
   
     int substringEndPos = min(recipeScrollPosition + 16, mCocktailMenu.GetCurrentCocktail().ingredients.length());
     String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(recipeScrollPosition, substringEndPos);
 
-    lcd.setCursor(0, 1);
-    lcd.print("                ");
     lcd.setCursor(0, 1);
     lcd.print(recipeSubstring);
   }
