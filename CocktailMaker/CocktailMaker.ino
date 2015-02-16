@@ -35,7 +35,7 @@ void PrintCocktail()
   lcd.setCursor(0, 1);
   lcd.print(recipeSubstring);
   
-  if(mRecipePosition + 16 < mCocktailMenu.GetCurrentCocktail().ingredients.length())
+  if(mRecipePosition + 12 < mCocktailMenu.GetCurrentCocktail().ingredients.length())
   {
     mRecipePosition++;
   }
