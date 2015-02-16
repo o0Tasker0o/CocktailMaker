@@ -23,6 +23,20 @@ Cocktail CocktailMenu::GetCurrentCocktail()
     return mCocktails[mCocktailIndex];
 }
 
+void CocktailMenu::SelectPreviousCocktail()
+{
+    do
+    {
+        mCocktailIndex--;
+
+        if(mCocktailIndex < 0)
+        {
+            mCocktailIndex = COCKTAIL_COUNT - 1;
+        }
+    }
+    while(!IngredientsAreAvailable());
+}
+
 void CocktailMenu::SelectNextCocktail()
 {
     do

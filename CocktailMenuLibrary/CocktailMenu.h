@@ -16,6 +16,7 @@ class CocktailMenu
   public:
     CocktailMenu(String *availableIngredients);
     Cocktail GetCurrentCocktail();
+    void SelectPreviousCocktail();
     void SelectNextCocktail();
     bool IngredientsAreAvailable();
   private:
