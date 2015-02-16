@@ -22,11 +22,11 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 bool mLastButtonState = false;
 String mAvailableIngredients[] = {"Pineapple Juice", "Vodka", "Cointreau", "Cranberry Juice", "Lime Juice", "Peach Schnapps"};
 CocktailMenu mCocktailMenu(mAvailableIngredients);
-int mScrollCounter = 0;
+long mScrollCounter = 0;
 
 void PrintCocktail()
 {
-  int recipeScrollPosition = mScrollCounter / SCROLL_DELAY;
+  long recipeScrollPosition = mScrollCounter / SCROLL_DELAY;
 
   if(mScrollCounter % SCROLL_DELAY == 0)
   {
@@ -35,7 +35,8 @@ void PrintCocktail()
     lcd.setCursor(0, 0);
     lcd.print(mCocktailMenu.GetCurrentCocktail().name);
   
-    String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(recipeScrollPosition, recipeScrollPosition + 16);
+    int substringEndPos = min(recipeScrollPosition + 16, mCocktailMenu.GetCurrentCocktail().ingredients.length());
+    String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(recipeScrollPosition, substringEndPos);
 
     lcd.setCursor(0, 1);
     lcd.print("                ");
