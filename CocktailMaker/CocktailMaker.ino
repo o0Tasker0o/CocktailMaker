@@ -28,14 +28,14 @@ void PrintCocktail()
   lcd.setCursor(0, 0);
   lcd.print(mCocktailMenu.GetCurrentCocktail().name);
 
-  String recipeSubstring = mCocktailMenu.GetCurrentCocktail().recipe.substring(mRecipePosition, mRecipePosition + 16);
+  String recipeSubstring = mCocktailMenu.GetCurrentCocktail().ingredients.substring(mRecipePosition, mRecipePosition + 16);
   
   lcd.setCursor(0, 1);
   lcd.print("                ");
   lcd.setCursor(0, 1);
   lcd.print(recipeSubstring);
   
-  if(mRecipePosition + 16 < mCocktailMenu.GetCurrentCocktail().recipe.length())
+  if(mRecipePosition + 16 < mCocktailMenu.GetCurrentCocktail().ingredients.length())
   {
     mRecipePosition++;
   }

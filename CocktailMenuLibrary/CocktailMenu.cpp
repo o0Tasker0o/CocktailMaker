@@ -6,10 +6,10 @@ CocktailMenu::CocktailMenu()
     mCocktailIndex = 0;
 
     mCocktails[0].name = "Screwdriver";
-    mCocktails[0].recipe = "Vodka, Orange Juice";
+    mCocktails[0].ingredients = "Vodka, Orange Juice";
 
     mCocktails[1].name = "Cosmopolitan";
-    mCocktails[1].recipe = "Vodka, Cointreau, Cranberry Juice, Lime Juice";
+    mCocktails[1].ingredients = "Vodka, Cointreau, Cranberry Juice, Lime Juice";
 }
 
 Cocktail CocktailMenu::GetCurrentCocktail()

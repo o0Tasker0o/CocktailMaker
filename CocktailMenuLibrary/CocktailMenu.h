@@ -8,7 +8,7 @@
 struct Cocktail
 {
   String name;
-  String recipe;
+  String ingredients;
 };
 
 class CocktailMenu
