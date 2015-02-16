@@ -4,13 +4,18 @@
 CocktailMenu::CocktailMenu(String *availableIngredients)
 {
     mAvailableIngredients = availableIngredients;
-    mCocktailIndex = 0;
 
     mCocktails[0].name = "Screwdriver";
     mCocktails[0].ingredients = "Vodka, Orange Juice";
 
     mCocktails[1].name = "Cosmopolitan";
     mCocktails[1].ingredients = "Vodka, Cointreau, Cranberry Juice, Lime Juice";
+
+    mCocktails[2].name = "Sex on the Beach";
+    mCocktails[2].ingredients = "Peach Schnapps, Vodka, Pineapple Juice, Cranberry Juice";
+
+    mCocktailIndex = -1;
+    SelectNextCocktail();
 }
 
 Cocktail CocktailMenu::GetCurrentCocktail()
@@ -20,12 +25,16 @@ Cocktail CocktailMenu::GetCurrentCocktail()
 
 void CocktailMenu::SelectNextCocktail()
 {
-    mCocktailIndex++;
-
-    if(mCocktailIndex >= COCKTAIL_COUNT)
+    do
     {
-        mCocktailIndex = 0;
-    }
+        mCocktailIndex++;
+
+        if(mCocktailIndex >= COCKTAIL_COUNT)
+        {
+            mCocktailIndex = 0;
+        }
+	}
+    while(!IngredientsAreAvailable());
 }
 
 bool CocktailMenu::IngredientsAreAvailable()
