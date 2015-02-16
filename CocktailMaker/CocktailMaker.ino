@@ -19,7 +19,8 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int mRecipePosition;
 bool mLastButtonState = false;
-CocktailMenu mCocktailMenu;
+String mAvailableIngredients[] = {"Orange Juice", "Vodka", "Cointreau", "Cranberry Juice", "Lime Juice", ""};
+CocktailMenu mCocktailMenu(mAvailableIngredients);
 
 void PrintCocktail()
 {

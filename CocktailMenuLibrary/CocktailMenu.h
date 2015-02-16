@@ -1,7 +1,7 @@
 #ifndef COCKTAILMENU_H
 #define COCKTAILMENU_H
 
-#define COCKTAIL_COUNT 2
+#define COCKTAIL_COUNT 3
 
 #include "Arduino.h"
 
@@ -14,12 +14,16 @@ struct Cocktail
 class CocktailMenu
 {
   public:
-    CocktailMenu();
+    CocktailMenu(String *availableIngredients);
     Cocktail GetCurrentCocktail();
     void SelectNextCocktail();
+    bool IngredientsAreAvailable();
   private:
-    Cocktail mCocktails[2];
+    Cocktail mCocktails[COCKTAIL_COUNT];
     int mCocktailIndex;
+    String *mAvailableIngredients;
+
+    int GetIngredientCount(String ingredientsList);
 };
 
 #endif
